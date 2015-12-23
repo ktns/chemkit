@@ -1,5 +1,9 @@
-chemkit (0.1-1) unstable; urgency=low
+chemkit (0.1-1~1.gbp57e865) UNRELEASED; urgency=medium
 
-  * Initial release (Closes: #nnnn)  <nnnn is the bug number of your ITP>
+  ** SNAPSHOT build @57e865c802bcbd6af9e111f74fd07884df42ec00 **
 
- -- Katsuhiko Nishimra <ktns.87@gmail.com>  Wed, 23 Dec 2015 22:17:52 +0900
+  * Summarize copyright notations
+  * Edit debian/control
+  * Edit Build-depends
+
+ -- Katsuhiko Nishimra <ktns.87@gmail.com>  Thu, 24 Dec 2015 00:28:49 +0900
