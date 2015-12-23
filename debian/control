@@ -1,15 +1,17 @@
 Source: chemkit
-Section: unknown
+Section: science
 Priority: optional
 Maintainer: Katsuhiko Nishimra <ktns.87@gmail.com>
 Build-Depends: debhelper (>= 9), cmake
 Standards-Version: 3.9.6
-Homepage: <insert the upstream URL, if relevant>
+Homepage: http://sourceforge.net/projects/chemkit/
 #Vcs-Git: git://anonscm.debian.org/collab-maint/chemkit.git
 #Vcs-Browser: https://anonscm.debian.org/gitweb/?p=collab-maint/chemkit.git;a=summary
 
 Package: chemkit
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: <insert up to 60 chars description>
- <insert long description, indented with spaces>
+Description: an open source software library for chemistry applications
+ chemkit is an open source software library for chemistry applications,
+ particularly in the areas of cheminformatics, molecular visualization and
+ molecular modeling.
