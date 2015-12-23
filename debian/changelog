@@ -1,0 +1,5 @@
+chemkit (0.1-1) unstable; urgency=low
+
+  * Initial release (Closes: #nnnn)  <nnnn is the bug number of your ITP>
+
+ -- Katsuhiko Nishimra <ktns.87@gmail.com>  Wed, 23 Dec 2015 22:17:52 +0900
