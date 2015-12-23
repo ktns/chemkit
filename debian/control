@@ -13,8 +13,26 @@ Homepage: http://sourceforge.net/projects/chemkit/
 
 Package: chemkit
 Architecture: any
+Depends: libchemkit (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}
+Description: an open source software library for chemistry applications
+ chemkit is an open source software library for chemistry applications,
+ particularly in the areas of cheminformatics, molecular visualization and
+ molecular modeling.
+
+Package: libchemkit
+Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: an open source software library for chemistry applications
  chemkit is an open source software library for chemistry applications,
  particularly in the areas of cheminformatics, molecular visualization and
  molecular modeling.
+ This package contains library files.
+
+Package: libchemkit-dev
+Architecture: any
+Depends: libchemkit (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}
+Description: an open source software library for chemistry applications
+ chemkit is an open source software library for chemistry applications,
+ particularly in the areas of cheminformatics, molecular visualization and
+ molecular modeling.
+ This package contains development files.
