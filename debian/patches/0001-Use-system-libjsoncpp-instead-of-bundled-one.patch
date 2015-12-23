@@ -1,0 +1,30 @@
+From: Katsuhiko Nishimra <ktns.87@gmail.com>
+Date: Thu, 24 Dec 2015 01:36:15 +0900
+Subject: Use system libjsoncpp instead of bundled one
+
+---
+ src/plugins/chemjson/CMakeLists.txt | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
+
+diff --git a/src/plugins/chemjson/CMakeLists.txt b/src/plugins/chemjson/CMakeLists.txt
+index 0e115b5..b9c6a4a 100644
+--- a/src/plugins/chemjson/CMakeLists.txt
++++ b/src/plugins/chemjson/CMakeLists.txt
+@@ -10,7 +10,15 @@ set(SOURCES
+   chemjsonplugin.cpp
+ )
+ 
+-aux_source_directory(../../3rdparty/jsoncpp/ JSONCPP_SOURCES)
++# Use system libjsoncpp instead of bundled one
++#aux_source_directory(../../3rdparty/jsoncpp/ JSONCPP_SOURCES)
++#
++#add_chemkit_plugin(chemjson ${SOURCES} ${JSONCPP_SOURCES})
++find_package(PkgConfig)
++pkg_check_modules(JSONCPP jsoncpp)
++
++add_chemkit_plugin(chemjson ${SOURCES})
++target_include_directories(chemjson PRIVATE ${JSONCPP_INCLUDE_DIRS})
++target_link_libraries(chemjson ${JSONCPP_LIBRARIES})
+ 
+-add_chemkit_plugin(chemjson ${SOURCES} ${JSONCPP_SOURCES})
+ target_link_libraries(chemjson ${CHEMKIT_LIBRARIES})
