@@ -20,6 +20,7 @@ Description: an open source software library for chemistry applications
  molecular modeling.
 
 Package: libchemkit
+Section: libs
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: an open source software library for chemistry applications
@@ -29,6 +30,7 @@ Description: an open source software library for chemistry applications
  This package contains library files.
 
 Package: libchemkit-dev
+Section: libdevel
 Architecture: any
 Depends: libchemkit (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}
 Description: an open source software library for chemistry applications
