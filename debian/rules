@@ -27,6 +27,9 @@ include /usr/share/dpkg/default.mk
 #	dh_auto_configure -- \
 #	-DCMAKE_LIBRARY_PATH=$(DEB_HOST_MULTIARCH)
 
+override_dh_install::
+	dh_install --fail-missing
+
 override_dh_installman::
 	dh_installman $(wildcard doc/man/*)
 
