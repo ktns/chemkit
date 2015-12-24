@@ -1,0 +1,30 @@
+From: Katsuhiko Nishimra <ktns.87@gmail.com>
+Date: Thu, 24 Dec 2015 18:47:49 +0900
+Subject: Fix doc/man/chemkit-grep.1
+
+---
+ doc/man/chemkit-grep.1 | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/doc/man/chemkit-grep.1 b/doc/man/chemkit-grep.1
+index fe60500..9c1c634 100644
+--- a/doc/man/chemkit-grep.1
++++ b/doc/man/chemkit-grep.1
+@@ -8,13 +8,13 @@ chemkit-convert [OPTIONS] PATTERN [FILE]
+ The chemkit-grep tool searches for molecular substructures in
+ chemical files.
+ .SH OPTIONS
+-.IP -c "--composition"
++.IP "-c --composition"
+ Match composition rather than structure.
+-.IP -e "--exact-match"
++.IP "-e --exact-match"
+ Return molecules that exactly match PATTERN.
+-.IP -v "--invert-match"
++.IP "-v --invert-match"
+ Return only non-matching molecules.
+-.IP -n "--names-only"
++.IP "-n --names-only"
+ Output only the names of matching molecules.
+ .SH EXAMPLES
+ .PP
