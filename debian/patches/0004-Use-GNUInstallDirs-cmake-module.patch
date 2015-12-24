@@ -1,0 +1,190 @@
+From: Katsuhiko Nishimra <ktns.87@gmail.com>
+Date: Fri, 25 Dec 2015 01:21:35 +0900
+Subject: Use GNUInstallDirs cmake module
+
+---
+ CMakeLists.txt                          | 4 +++-
+ src/3rdparty/lemon/lemon/CMakeLists.txt | 6 +++---
+ src/CMakeLists.txt                      | 2 +-
+ src/apps/CMakeLists.txt                 | 2 +-
+ src/chemkit/CMakeLists.txt              | 2 +-
+ src/graphics/CMakeLists.txt             | 2 +-
+ src/gui/CMakeLists.txt                  | 2 +-
+ src/io/CMakeLists.txt                   | 2 +-
+ src/md-io/CMakeLists.txt                | 2 +-
+ src/md/CMakeLists.txt                   | 2 +-
+ src/plugins/CMakeLists.txt              | 6 +++---
+ src/web/CMakeLists.txt                  | 2 +-
+ 12 files changed, 18 insertions(+), 16 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index e531be4..62b7b65 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -7,6 +7,8 @@ set(CHEMKIT_VERSION_MINOR 1)
+ 
+ set(CMAKE_MODULE_PATH ${Chemkit_SOURCE_DIR}/cmake)
+ 
++include(GNUInstallDirs)
++
+ # find dependencies
+ find_package(Eigen3 REQUIRED)
+ 
+@@ -44,7 +46,7 @@ configure_file(
+     "${CMAKE_MODULE_PATH}/ChemkitConfig.cmake.in"
+     "${CMAKE_BINARY_DIR}/ChemkitConfig.cmake"
+     IMMEDIATE @ONLY)
+-install(FILES ${CMAKE_BINARY_DIR}/ChemkitConfig.cmake DESTINATION lib/chemkit)
++install(FILES ${CMAKE_BINARY_DIR}/ChemkitConfig.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/chemkit)
+ 
+ # Create a ChemkitBuildTreeSettings.cmake file for the use from the build tree
+ configure_file(
+diff --git a/src/3rdparty/lemon/lemon/CMakeLists.txt b/src/3rdparty/lemon/lemon/CMakeLists.txt
+index 387596e..64ec3e9 100644
+--- a/src/3rdparty/lemon/lemon/CMakeLists.txt
++++ b/src/3rdparty/lemon/lemon/CMakeLists.txt
+@@ -50,19 +50,19 @@ ENDIF()
+ 
+ INSTALL(
+   TARGETS lemon
+-  ARCHIVE DESTINATION lib
++  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+   COMPONENT library
+ )
+ 
+ INSTALL(
+   DIRECTORY . bits concepts
+-  DESTINATION include/lemon
++  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/lemon
+   COMPONENT headers
+   FILES_MATCHING PATTERN "*.h"
+ )
+ 
+ INSTALL(
+   FILES ${CMAKE_CURRENT_BINARY_DIR}/config.h
+-  DESTINATION include/lemon
++  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/lemon
+   COMPONENT headers
+ )
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index 88c6b5f..1706583 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -8,7 +8,7 @@ macro(add_chemkit_library library_name)
+   add_library(${library_name} SHARED ${ARGN})
+ 
+   # add install target
+-  install(TARGETS ${library_name} DESTINATION lib)
++  install(TARGETS ${library_name} DESTINATION ${CMAKE_INSTALL_LIBDIR})
+ 
+   # copy library into build directory
+   get_target_property(library_location ${library_name} LOCATION)
+diff --git a/src/apps/CMakeLists.txt b/src/apps/CMakeLists.txt
+index 7b88b73..cdf41b8 100644
+--- a/src/apps/CMakeLists.txt
++++ b/src/apps/CMakeLists.txt
+@@ -5,7 +5,7 @@ endif()
+ macro(add_chemkit_executable name)
+   add_executable(${name} ${ARGN})
+   set_target_properties(${name} PROPERTIES OUTPUT_NAME chemkit-${name})
+-  install(TARGETS ${name} DESTINATION bin)
++  install(TARGETS ${name} DESTINATION ${CMAKE_INSTALL_BINDIR})
+ 
+   # copy binary
+   get_target_property(location ${name} LOCATION)
+diff --git a/src/chemkit/CMakeLists.txt b/src/chemkit/CMakeLists.txt
+index d07f265..4ed3e5d 100644
+--- a/src/chemkit/CMakeLists.txt
++++ b/src/chemkit/CMakeLists.txt
+@@ -135,4 +135,4 @@ if(UNIX)
+ endif()
+ 
+ # install header files
+-install(FILES ${HEADERS} DESTINATION include/chemkit/)
++install(FILES ${HEADERS} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/chemkit/)
+diff --git a/src/graphics/CMakeLists.txt b/src/graphics/CMakeLists.txt
+index 53930d7..1dad1a9 100644
+--- a/src/graphics/CMakeLists.txt
++++ b/src/graphics/CMakeLists.txt
+@@ -102,4 +102,4 @@ add_chemkit_library(chemkit-graphics ${SOURCES} ${MOC_SOURCES} ${RCC_SOURCES} ${
+ target_link_libraries(chemkit-graphics ${CHEMKIT_LIBRARIES} ${QT_LIBRARIES} ${OPENGL_LIBRARIES})
+ 
+ # install header files
+-install(FILES ${HEADERS} DESTINATION include/chemkit/)
++install(FILES ${HEADERS} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/chemkit/)
+diff --git a/src/gui/CMakeLists.txt b/src/gui/CMakeLists.txt
+index e4d6b9a..51a2716 100644
+--- a/src/gui/CMakeLists.txt
++++ b/src/gui/CMakeLists.txt
+@@ -45,4 +45,4 @@ add_chemkit_library(chemkit-gui ${SOURCES} ${UI_SOURCES} ${MOC_SOURCES})
+ target_link_libraries(chemkit-gui ${CHEMKIT_LIBRARIES} ${QT_LIBRARIES})
+ 
+ # install header files
+-install(FILES ${HEADERS} DESTINATION include/chemkit/)
++install(FILES ${HEADERS} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/chemkit/)
+diff --git a/src/io/CMakeLists.txt b/src/io/CMakeLists.txt
+index 9b4d499..e4b0beb 100644
+--- a/src/io/CMakeLists.txt
++++ b/src/io/CMakeLists.txt
+@@ -36,4 +36,4 @@ add_chemkit_library(chemkit-io ${SOURCES})
+ target_link_libraries(chemkit-io ${CHEMKIT_LIBRARIES} ${Boost_LIBRARIES})
+ 
+ # install header files
+-install(FILES ${HEADERS} DESTINATION include/chemkit/)
++install(FILES ${HEADERS} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/chemkit/)
+diff --git a/src/md-io/CMakeLists.txt b/src/md-io/CMakeLists.txt
+index f3d33f9..ed1662d 100644
+--- a/src/md-io/CMakeLists.txt
++++ b/src/md-io/CMakeLists.txt
+@@ -28,4 +28,4 @@ add_chemkit_library(chemkit-md-io ${SOURCES})
+ target_link_libraries(chemkit-md-io ${CHEMKIT_LIBRARIES})
+ 
+ # install header files
+-install(FILES ${HEADERS} DESTINATION include/chemkit/)
++install(FILES ${HEADERS} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/chemkit/)
+diff --git a/src/md/CMakeLists.txt b/src/md/CMakeLists.txt
+index 0af9649..8e8407b 100644
+--- a/src/md/CMakeLists.txt
++++ b/src/md/CMakeLists.txt
+@@ -41,4 +41,4 @@ add_chemkit_library(chemkit-md ${SOURCES})
+ target_link_libraries(chemkit-md ${CHEMKIT_LIBRARIES})
+ 
+ # install header files
+-install(FILES ${HEADERS} DESTINATION include/chemkit/)
++install(FILES ${HEADERS} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/chemkit/)
+diff --git a/src/plugins/CMakeLists.txt b/src/plugins/CMakeLists.txt
+index 460f785..187d44c 100644
+--- a/src/plugins/CMakeLists.txt
++++ b/src/plugins/CMakeLists.txt
+@@ -3,7 +3,7 @@ macro(add_chemkit_plugin plugin_name)
+   add_library(${plugin_name} SHARED ${ARGN})
+ 
+   # add install target
+-  install(TARGETS ${plugin_name} DESTINATION lib/chemkit/plugins/)
++  install(TARGETS ${plugin_name} DESTINATION ${CMAKE_INSTALL_LIBDIR}/chemkit/plugins/)
+ 
+   # remove 'lib' prefix
+   set_target_properties(${plugin_name} PROPERTIES PREFIX "")
+@@ -16,10 +16,10 @@ macro(add_chemkit_plugin plugin_name)
+   # plugin data
+   if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/data)
+     # copy plugin data into build directory
+-    file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/data/ DESTINATION ${CMAKE_BINARY_DIR}/lib/chemkit/plugins/data/${plugin_name}/)
++    file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/data/ DESTINATION ${CMAKE_INSTALL_LIBDIR}/chemkit/plugins/data/${plugin_name}/)
+     
+     # install plugin data directory
+-    install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/data/ DESTINATION lib/chemkit/plugins/data/${plugin_name})
++    install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/data/ DESTINATION ${CMAKE_INSTALL_LIBDIR}/chemkit/plugins/data/${plugin_name})
+   endif()
+ endmacro(add_chemkit_plugin)
+ 
+diff --git a/src/web/CMakeLists.txt b/src/web/CMakeLists.txt
+index caed6c4..ae8afac 100644
+--- a/src/web/CMakeLists.txt
++++ b/src/web/CMakeLists.txt
+@@ -41,4 +41,4 @@ add_chemkit_library(chemkit-web ${SOURCES} ${MOC_SOURCES})
+ target_link_libraries(chemkit-web ${CHEMKIT_LIBRARIES} ${QT_LIBRARIES})
+ 
+ # install header files
+-install(FILES ${HEADERS} DESTINATION include/chemkit/)
++install(FILES ${HEADERS} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/chemkit/)
