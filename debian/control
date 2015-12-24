@@ -32,7 +32,7 @@ Description: an open source software library for chemistry applications
 Package: libchemkit-dev
 Section: libdevel
 Architecture: any
-Depends: libchemkit (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}
+Depends: libchemkit (= ${binary:Version}), ${misc:Depends}
 Description: an open source software library for chemistry applications
  chemkit is an open source software library for chemistry applications,
  particularly in the areas of cheminformatics, molecular visualization and
