@@ -2,3 +2,4 @@
 0002-Fix-doc-man-chemkit-grep.1.patch
 0003-Use-system-FindEigen3.cmake.patch
 0004-Use-GNUInstallDirs-cmake-module.patch
+0005-Use-system-rapidxml.patch
