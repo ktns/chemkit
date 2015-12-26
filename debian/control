@@ -23,6 +23,7 @@ Description: open source software library for chemistry applications
 Package: libchemkit
 Section: libs
 Architecture: any
+Multi-arch: same
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: open source software library for chemistry applications
  chemkit is an open source software library for chemistry applications,

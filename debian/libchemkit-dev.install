@@ -1,2 +1,2 @@
-usr/lib/chemkit/ChemkitConfig.cmake
+usr/lib/**/chemkit/ChemkitConfig.cmake
 usr/include
