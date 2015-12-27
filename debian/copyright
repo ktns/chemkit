@@ -126,6 +126,10 @@ Files: src/3rdparty/rapidxml/*
 Copyright: 2006, 2007 Marcin Kalicinski
 License: Boost-1.0
 
+Files: src/3rdparty/xdrf/*
+Copyright: 1995 frans van hoesel <hoesel@chem.rug.nl>
+License: Boost-1.0
+
 Files: src/graphics/graphicspymolsurfaceitem.cpp
        src/graphics/graphicspymolsurfaceitem.h
 Copyright: 2011 Wang Wenlin <sopl.wang@gmail.com>
