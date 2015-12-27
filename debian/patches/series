@@ -4,3 +4,4 @@
 0004-Use-GNUInstallDirs-cmake-module.patch
 0005-Use-system-rapidxml.patch
 0006-Workaround-for-moc-and-boost-issue.patch
+0007-Mark-tests-which-requires-DISPLAY.patch
