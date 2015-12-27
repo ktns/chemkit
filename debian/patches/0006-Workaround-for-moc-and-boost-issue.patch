@@ -1,0 +1,825 @@
+From: Katsuhiko Nishimra <ktns.87@gmail.com>
+Date: Sun, 27 Dec 2015 23:48:47 +0900
+Subject: Workaround for moc and boost issue
+
+---
+ src/chemkit/atom.h                            | 2 ++
+ src/chemkit/bitset.h                          | 2 ++
+ src/chemkit/bond.h                            | 2 ++
+ src/chemkit/bondpredictor.h                   | 2 ++
+ src/chemkit/cartesiancoordinates.h            | 2 ++
+ src/chemkit/chemkit.h                         | 2 ++
+ src/chemkit/concurrent.h                      | 2 ++
+ src/chemkit/coordinatepredictor.h             | 2 ++
+ src/chemkit/delaunaytriangulation.h           | 2 ++
+ src/chemkit/fingerprintsimilaritydescriptor.h | 2 ++
+ src/chemkit/foreach.h                         | 2 ++
+ src/chemkit/geometry.h                        | 2 ++
+ src/chemkit/molecularsurface.h                | 2 ++
+ src/chemkit/molecule-inline.h                 | 2 ++
+ src/chemkit/molecule.h                        | 2 ++
+ src/chemkit/moleculeeditor.h                  | 2 ++
+ src/chemkit/moleculegraphtraits.h             | 2 ++
+ src/chemkit/moleculewatcher.h                 | 2 ++
+ src/chemkit/plugin.h                          | 2 ++
+ src/chemkit/pluginmanager.h                   | 2 ++
+ src/chemkit/ring.h                            | 2 ++
+ src/chemkit/rppath.h                          | 2 ++
+ src/chemkit/structuresimilaritydescriptor.h   | 2 ++
+ src/chemkit/substructurequery.h               | 2 ++
+ src/chemkit/variant-inline.h                  | 2 ++
+ src/graphics/graphicsmolecularsurfaceitem.h   | 2 ++
+ src/graphics/graphicsmoleculeitem.h           | 2 ++
+ src/graphics/graphicsmoleculewireframeitem.h  | 2 ++
+ src/graphics/graphicspymolsurfaceitem.h       | 2 ++
+ src/graphics/graphicstool.h                   | 2 ++
+ src/graphics/graphicsview.h                   | 2 ++
+ src/io/genericfile-inline.h                   | 2 ++
+ src/io/genericfile.h                          | 2 ++
+ src/io/moleculefile.h                         | 2 ++
+ src/io/moleculefileformat.h                   | 2 ++
+ src/io/moleculefileformatadaptor-inline.h     | 2 ++
+ src/io/polymerfile.h                          | 2 ++
+ src/io/polymerfileformat.h                    | 2 ++
+ src/md-io/topologyfile.h                      | 2 ++
+ src/md-io/topologyfileformat.h                | 2 ++
+ src/md-io/trajectoryfile.h                    | 2 ++
+ src/md-io/trajectoryfileformat.h              | 2 ++
+ src/md/forcefield.h                           | 2 ++
+ src/md/forcefieldcalculation.h                | 2 ++
+ src/md/integrator.h                           | 2 ++
+ src/md/moleculegeometryoptimizer.h            | 2 ++
+ src/md/potential.h                            | 2 ++
+ src/md/topology.h                             | 2 ++
+ src/md/topologybuilder.h                      | 2 ++
+ src/plugins/mmff/mmffparameters.h             | 2 ++
+ src/plugins/mmff/mmffplugin.h                 | 2 ++
+ src/web/proteindatabank.h                     | 2 ++
+ src/web/pubchem.h                             | 2 ++
+ 53 files changed, 106 insertions(+)
+
+diff --git a/src/chemkit/atom.h b/src/chemkit/atom.h
+index 059ff5d..ef9c6ee 100644
+--- a/src/chemkit/atom.h
++++ b/src/chemkit/atom.h
+@@ -40,10 +40,12 @@
+ 
+ #include <vector>
+ 
++#ifndef Q_MOC_RUN
+ #include <boost/function.hpp>
+ #include <boost/range/iterator_range.hpp>
+ #include <boost/iterator/filter_iterator.hpp>
+ #include <boost/iterator/transform_iterator.hpp>
++#endif
+ 
+ #include "point3.h"
+ #include "element.h"
+diff --git a/src/chemkit/bitset.h b/src/chemkit/bitset.h
+index 6692c7b..d95597a 100644
+--- a/src/chemkit/bitset.h
++++ b/src/chemkit/bitset.h
+@@ -38,7 +38,9 @@
+ 
+ #include "chemkit.h"
+ 
++#ifndef Q_MOC_RUN
+ #include <boost/dynamic_bitset.hpp>
++#endif
+ 
+ namespace chemkit {
+ 
+diff --git a/src/chemkit/bond.h b/src/chemkit/bond.h
+index 5f4b27d..d873f80 100644
+--- a/src/chemkit/bond.h
++++ b/src/chemkit/bond.h
+@@ -40,9 +40,11 @@
+ 
+ #include <vector>
+ 
++#ifndef Q_MOC_RUN
+ #include <boost/function.hpp>
+ #include <boost/range/iterator_range.hpp>
+ #include <boost/iterator/filter_iterator.hpp>
++#endif
+ 
+ #include "point3.h"
+ #include "vector3.h"
+diff --git a/src/chemkit/bondpredictor.h b/src/chemkit/bondpredictor.h
+index ef07340..6b355f9 100644
+--- a/src/chemkit/bondpredictor.h
++++ b/src/chemkit/bondpredictor.h
+@@ -40,7 +40,9 @@
+ 
+ #include <vector>
+ 
++#ifndef Q_MOC_RUN
+ #include <boost/tuple/tuple.hpp>
++#endif
+ 
+ #include "bond.h"
+ 
+diff --git a/src/chemkit/cartesiancoordinates.h b/src/chemkit/cartesiancoordinates.h
+index 6f3c1fc..23105d1 100644
+--- a/src/chemkit/cartesiancoordinates.h
++++ b/src/chemkit/cartesiancoordinates.h
+@@ -40,7 +40,9 @@
+ 
+ #include <vector>
+ 
++#ifndef Q_MOC_RUN
+ #include <boost/array.hpp>
++#endif
+ 
+ #include "matrix.h"
+ #include "point3.h"
+diff --git a/src/chemkit/chemkit.h b/src/chemkit/chemkit.h
+index 4909130..00a3f07 100644
+--- a/src/chemkit/chemkit.h
++++ b/src/chemkit/chemkit.h
+@@ -38,8 +38,10 @@
+ 
+ #include <cstddef>
+ 
++#ifndef Q_MOC_RUN
+ #include <boost/config.hpp>
+ #include <boost/preprocessor/stringize.hpp>
++#endif
+ 
+ #include "config.h"
+ 
+diff --git a/src/chemkit/concurrent.h b/src/chemkit/concurrent.h
+index 968a7ff..c288021 100644
+--- a/src/chemkit/concurrent.h
++++ b/src/chemkit/concurrent.h
+@@ -38,7 +38,9 @@
+ 
+ #include "chemkit.h"
+ 
++#ifndef Q_MOC_RUN
+ #include <boost/thread.hpp>
++#endif
+ 
+ namespace chemkit {
+ namespace concurrent {
+diff --git a/src/chemkit/coordinatepredictor.h b/src/chemkit/coordinatepredictor.h
+index 5a9809d..664a9be 100644
+--- a/src/chemkit/coordinatepredictor.h
++++ b/src/chemkit/coordinatepredictor.h
+@@ -38,7 +38,9 @@
+ 
+ #include "chemkit.h"
+ 
++#ifndef Q_MOC_RUN
+ #include <boost/thread/future.hpp>
++#endif
+ 
+ namespace chemkit {
+ 
+diff --git a/src/chemkit/delaunaytriangulation.h b/src/chemkit/delaunaytriangulation.h
+index b67fa33..4ad03ce 100644
+--- a/src/chemkit/delaunaytriangulation.h
++++ b/src/chemkit/delaunaytriangulation.h
+@@ -40,7 +40,9 @@
+ 
+ #include <vector>
+ 
++#ifndef Q_MOC_RUN
+ #include <boost/array.hpp>
++#endif
+ 
+ #include "point3.h"
+ 
+diff --git a/src/chemkit/fingerprintsimilaritydescriptor.h b/src/chemkit/fingerprintsimilaritydescriptor.h
+index 1f18f08..fcdc3d9 100644
+--- a/src/chemkit/fingerprintsimilaritydescriptor.h
++++ b/src/chemkit/fingerprintsimilaritydescriptor.h
+@@ -38,7 +38,9 @@
+ 
+ #include "chemkit.h"
+ 
++#ifndef Q_MOC_RUN
+ #include <boost/shared_ptr.hpp>
++#endif
+ 
+ #include "moleculardescriptor.h"
+ 
+diff --git a/src/chemkit/foreach.h b/src/chemkit/foreach.h
+index 5090e50..84e9d37 100644
+--- a/src/chemkit/foreach.h
++++ b/src/chemkit/foreach.h
+@@ -38,7 +38,9 @@
+ 
+ #include "chemkit.h"
+ 
++#ifndef Q_MOC_RUN
+ #include <boost/foreach.hpp>
++#endif
+ 
+ #define foreach BOOST_FOREACH
+ 
+diff --git a/src/chemkit/geometry.h b/src/chemkit/geometry.h
+index 4285bca..b337126 100644
+--- a/src/chemkit/geometry.h
++++ b/src/chemkit/geometry.h
+@@ -38,7 +38,9 @@
+ 
+ #include "chemkit.h"
+ 
++#ifndef Q_MOC_RUN
+ #include <boost/array.hpp>
++#endif
+ 
+ #include "point3.h"
+ #include "vector3.h"
+diff --git a/src/chemkit/molecularsurface.h b/src/chemkit/molecularsurface.h
+index bc34b6b..c04e1b0 100644
+--- a/src/chemkit/molecularsurface.h
++++ b/src/chemkit/molecularsurface.h
+@@ -38,7 +38,9 @@
+ 
+ #include "chemkit.h"
+ 
++#ifndef Q_MOC_RUN
+ #include <boost/thread/future.hpp>
++#endif
+ 
+ #include "point3.h"
+ 
+diff --git a/src/chemkit/molecule-inline.h b/src/chemkit/molecule-inline.h
+index 8e484d8..adac010 100644
+--- a/src/chemkit/molecule-inline.h
++++ b/src/chemkit/molecule-inline.h
+@@ -38,7 +38,9 @@
+ 
+ #include "molecule.h"
+ 
++#ifndef Q_MOC_RUN
+ #include <boost/foreach.hpp>
++#endif
+ 
+ namespace chemkit {
+ 
+diff --git a/src/chemkit/molecule.h b/src/chemkit/molecule.h
+index eca987f..459c0db 100644
+--- a/src/chemkit/molecule.h
++++ b/src/chemkit/molecule.h
+@@ -42,7 +42,9 @@
+ #include <string>
+ #include <vector>
+ 
++#ifndef Q_MOC_RUN
+ #include <boost/range/iterator_range.hpp>
++#endif
+ 
+ #include "bitset.h"
+ #include "point3.h"
+diff --git a/src/chemkit/moleculeeditor.h b/src/chemkit/moleculeeditor.h
+index 34af153..2513e5a 100644
+--- a/src/chemkit/moleculeeditor.h
++++ b/src/chemkit/moleculeeditor.h
+@@ -38,7 +38,9 @@
+ 
+ #include "chemkit.h"
+ 
++#ifndef Q_MOC_RUN
+ #include <boost/signals2.hpp>
++#endif
+ 
+ #include "molecule.h"
+ 
+diff --git a/src/chemkit/moleculegraphtraits.h b/src/chemkit/moleculegraphtraits.h
+index c75f650..1b22723 100644
+--- a/src/chemkit/moleculegraphtraits.h
++++ b/src/chemkit/moleculegraphtraits.h
+@@ -38,10 +38,12 @@
+ 
+ #include <utility>
+ 
++#ifndef Q_MOC_RUN
+ #include <boost/graph/properties.hpp>
+ #include <boost/graph/graph_traits.hpp>
+ #include <boost/property_map/property_map.hpp>
+ #include <boost/type_traits/remove_reference.hpp>
++#endif
+ 
+ #include "atom.h"
+ #include "bond.h"
+diff --git a/src/chemkit/moleculewatcher.h b/src/chemkit/moleculewatcher.h
+index acb0109..b694753 100644
+--- a/src/chemkit/moleculewatcher.h
++++ b/src/chemkit/moleculewatcher.h
+@@ -38,7 +38,9 @@
+ 
+ #include "chemkit.h"
+ 
++#ifndef Q_MOC_RUN
+ #include <boost/signals2/signal.hpp>
++#endif
+ 
+ namespace chemkit {
+ 
+diff --git a/src/chemkit/plugin.h b/src/chemkit/plugin.h
+index 4b14afb..eaa7f86 100644
+--- a/src/chemkit/plugin.h
++++ b/src/chemkit/plugin.h
+@@ -40,8 +40,10 @@
+ 
+ #include <string>
+ 
++#ifndef Q_MOC_RUN
+ #include <boost/function.hpp>
+ #include <boost/lambda/construct.hpp>
++#endif
+ 
+ namespace chemkit {
+ 
+diff --git a/src/chemkit/pluginmanager.h b/src/chemkit/pluginmanager.h
+index bde3d9e..5065e74 100644
+--- a/src/chemkit/pluginmanager.h
++++ b/src/chemkit/pluginmanager.h
+@@ -41,7 +41,9 @@
+ #include <string>
+ #include <vector>
+ 
++#ifndef Q_MOC_RUN
+ #include <boost/function.hpp>
++#endif
+ 
+ namespace chemkit {
+ 
+diff --git a/src/chemkit/ring.h b/src/chemkit/ring.h
+index d05e811..7b83811 100644
+--- a/src/chemkit/ring.h
++++ b/src/chemkit/ring.h
+@@ -40,10 +40,12 @@
+ 
+ #include <vector>
+ 
++#ifndef Q_MOC_RUN
+ #include <boost/function.hpp>
+ #include <boost/range/iterator_range.hpp>
+ #include <boost/iterator/counting_iterator.hpp>
+ #include <boost/iterator/transform_iterator.hpp>
++#endif
+ 
+ namespace chemkit {
+ 
+diff --git a/src/chemkit/rppath.h b/src/chemkit/rppath.h
+index e14b621..485f188 100644
+--- a/src/chemkit/rppath.h
++++ b/src/chemkit/rppath.h
+@@ -42,7 +42,9 @@
+ #include <limits>
+ #include <algorithm>
+ 
++#ifndef Q_MOC_RUN
+ #include <boost/bind.hpp>
++#endif
+ 
+ #include <Eigen/Core>
+ 
+diff --git a/src/chemkit/structuresimilaritydescriptor.h b/src/chemkit/structuresimilaritydescriptor.h
+index 2f7d9a7..a984536 100644
+--- a/src/chemkit/structuresimilaritydescriptor.h
++++ b/src/chemkit/structuresimilaritydescriptor.h
+@@ -38,7 +38,9 @@
+ 
+ #include "chemkit.h"
+ 
++#ifndef Q_MOC_RUN
+ #include <boost/shared_ptr.hpp>
++#endif
+ 
+ #include "moleculardescriptor.h"
+ 
+diff --git a/src/chemkit/substructurequery.h b/src/chemkit/substructurequery.h
+index 85b866e..2be8be4 100644
+--- a/src/chemkit/substructurequery.h
++++ b/src/chemkit/substructurequery.h
+@@ -41,7 +41,9 @@
+ #include <map>
+ #include <vector>
+ 
++#ifndef Q_MOC_RUN
+ #include <boost/shared_ptr.hpp>
++#endif
+ 
+ #include "moiety.h"
+ 
+diff --git a/src/chemkit/variant-inline.h b/src/chemkit/variant-inline.h
+index ac59008..6c63b19 100644
+--- a/src/chemkit/variant-inline.h
++++ b/src/chemkit/variant-inline.h
+@@ -38,7 +38,9 @@
+ 
+ #include "variant.h"
+ 
++#ifndef Q_MOC_RUN
+ #include <boost/lexical_cast.hpp>
++#endif
+ 
+ namespace chemkit {
+ 
+diff --git a/src/graphics/graphicsmolecularsurfaceitem.h b/src/graphics/graphicsmolecularsurfaceitem.h
+index ec29c92..989ec1e 100644
+--- a/src/graphics/graphicsmolecularsurfaceitem.h
++++ b/src/graphics/graphicsmolecularsurfaceitem.h
+@@ -38,7 +38,9 @@
+ 
+ #include "graphics.h"
+ 
++#ifndef Q_MOC_RUN
+ #include <boost/shared_ptr.hpp>
++#endif
+ 
+ #include "graphicsitem.h"
+ 
+diff --git a/src/graphics/graphicsmoleculeitem.h b/src/graphics/graphicsmoleculeitem.h
+index e6fce2c..f3c119f 100644
+--- a/src/graphics/graphicsmoleculeitem.h
++++ b/src/graphics/graphicsmoleculeitem.h
+@@ -38,7 +38,9 @@
+ 
+ #include "graphics.h"
+ 
++#ifndef Q_MOC_RUN
+ #include <boost/shared_ptr.hpp>
++#endif
+ 
+ #include <chemkit/molecule.h>
+ #include <chemkit/atomcolormap.h>
+diff --git a/src/graphics/graphicsmoleculewireframeitem.h b/src/graphics/graphicsmoleculewireframeitem.h
+index f3de9c1..faee55f 100644
+--- a/src/graphics/graphicsmoleculewireframeitem.h
++++ b/src/graphics/graphicsmoleculewireframeitem.h
+@@ -38,7 +38,9 @@
+ 
+ #include "graphics.h"
+ 
++#ifndef Q_MOC_RUN
+ #include <boost/shared_ptr.hpp>
++#endif
+ 
+ #include "graphicsitem.h"
+ 
+diff --git a/src/graphics/graphicspymolsurfaceitem.h b/src/graphics/graphicspymolsurfaceitem.h
+index b1b9cc6..b79ff8e 100644
+--- a/src/graphics/graphicspymolsurfaceitem.h
++++ b/src/graphics/graphicspymolsurfaceitem.h
+@@ -38,7 +38,9 @@
+ 
+ #include "graphics.h"
+ 
++#ifndef Q_MOC_RUN
+ #include <boost/shared_ptr.hpp>
++#endif
+ 
+ #include "graphicsitem.h"
+ 
+diff --git a/src/graphics/graphicstool.h b/src/graphics/graphicstool.h
+index 8f4905b..a2a46b9 100644
+--- a/src/graphics/graphicstool.h
++++ b/src/graphics/graphicstool.h
+@@ -38,7 +38,9 @@
+ 
+ #include "graphics.h"
+ 
++#ifndef Q_MOC_RUN
+ #include <boost/shared_ptr.hpp>
++#endif
+ 
+ namespace chemkit {
+ 
+diff --git a/src/graphics/graphicsview.h b/src/graphics/graphicsview.h
+index 3f46c26..b72b077 100644
+--- a/src/graphics/graphicsview.h
++++ b/src/graphics/graphicsview.h
+@@ -38,7 +38,9 @@
+ 
+ #include "graphics.h"
+ 
++#ifndef Q_MOC_RUN
+ #include <boost/shared_ptr.hpp>
++#endif
+ 
+ #include <chemkit/point3.h>
+ 
+diff --git a/src/io/genericfile-inline.h b/src/io/genericfile-inline.h
+index 96eeae3..6bab431 100644
+--- a/src/io/genericfile-inline.h
++++ b/src/io/genericfile-inline.h
+@@ -39,6 +39,7 @@
+ #include "genericfile.h"
+ 
+ #include <fstream>
++#ifndef Q_MOC_RUN
+ #include <boost/format.hpp>
+ #include <boost/filesystem.hpp>
+ #include <boost/scoped_ptr.hpp>
+@@ -49,6 +50,7 @@
+ #include <boost/iostreams/filter/gzip.hpp>
+ #include <boost/iostreams/filter/bzip2.hpp>
+ #endif
++#endif
+ 
+ namespace chemkit {
+ 
+diff --git a/src/io/genericfile.h b/src/io/genericfile.h
+index c8be7ca..640969b 100644
+--- a/src/io/genericfile.h
++++ b/src/io/genericfile.h
+@@ -44,7 +44,9 @@
+ #include <istream>
+ #include <ostream>
+ 
++#ifndef Q_MOC_RUN
+ #include <boost/iostreams/device/mapped_file.hpp>
++#endif
+ 
+ #include <chemkit/variant.h>
+ #include <chemkit/variantmap.h>
+diff --git a/src/io/moleculefile.h b/src/io/moleculefile.h
+index 0f83b62..1e96e4f 100644
+--- a/src/io/moleculefile.h
++++ b/src/io/moleculefile.h
+@@ -41,8 +41,10 @@
+ #include <string>
+ #include <vector>
+ 
++#ifndef Q_MOC_RUN
+ #include <boost/shared_ptr.hpp>
+ #include <boost/range/iterator_range.hpp>
++#endif
+ 
+ #include "genericfile.h"
+ #include "moleculefileformat.h"
+diff --git a/src/io/moleculefileformat.h b/src/io/moleculefileformat.h
+index 8f1c4b4..921c493 100644
+--- a/src/io/moleculefileformat.h
++++ b/src/io/moleculefileformat.h
+@@ -43,7 +43,9 @@
+ #include <istream>
+ #include <ostream>
+ 
++#ifndef Q_MOC_RUN
+ #include <boost/iostreams/device/mapped_file.hpp>
++#endif
+ 
+ #include <chemkit/plugin.h>
+ #include <chemkit/variant.h>
+diff --git a/src/io/moleculefileformatadaptor-inline.h b/src/io/moleculefileformatadaptor-inline.h
+index 92c4b97..66c5651 100644
+--- a/src/io/moleculefileformatadaptor-inline.h
++++ b/src/io/moleculefileformatadaptor-inline.h
+@@ -38,8 +38,10 @@
+ 
+ #include "moleculefileformatadaptor.h"
+ 
++#ifndef Q_MOC_RUN
+ #include <boost/foreach.hpp>
+ #include <boost/algorithm/string.hpp>
++#endif
+ 
+ #include <chemkit/polymer.h>
+ #include <chemkit/lineformat.h>
+diff --git a/src/io/polymerfile.h b/src/io/polymerfile.h
+index 1040c51..39bdf1b 100644
+--- a/src/io/polymerfile.h
++++ b/src/io/polymerfile.h
+@@ -41,8 +41,10 @@
+ #include <string>
+ #include <vector>
+ 
++#ifndef Q_MOC_RUN
+ #include <boost/shared_ptr.hpp>
+ #include <boost/range/iterator_range.hpp>
++#endif
+ 
+ #include "genericfile.h"
+ #include "polymerfileformat.h"
+diff --git a/src/io/polymerfileformat.h b/src/io/polymerfileformat.h
+index 52e4fea..55b3810 100644
+--- a/src/io/polymerfileformat.h
++++ b/src/io/polymerfileformat.h
+@@ -43,7 +43,9 @@
+ #include <istream>
+ #include <ostream>
+ 
++#ifndef Q_MOC_RUN
+ #include <boost/iostreams/device/mapped_file.hpp>
++#endif
+ 
+ #include <chemkit/plugin.h>
+ 
+diff --git a/src/md-io/topologyfile.h b/src/md-io/topologyfile.h
+index 400bc3c..2e35abd 100644
+--- a/src/md-io/topologyfile.h
++++ b/src/md-io/topologyfile.h
+@@ -38,7 +38,9 @@
+ 
+ #include "md-io.h"
+ 
++#ifndef Q_MOC_RUN
+ #include <boost/shared_ptr.hpp>
++#endif
+ 
+ #include <chemkit/genericfile.h>
+ 
+diff --git a/src/md-io/topologyfileformat.h b/src/md-io/topologyfileformat.h
+index 05799fd..2dcf6f9 100644
+--- a/src/md-io/topologyfileformat.h
++++ b/src/md-io/topologyfileformat.h
+@@ -41,7 +41,9 @@
+ #include <string>
+ #include <vector>
+ 
++#ifndef Q_MOC_RUN
+ #include <boost/iostreams/device/mapped_file.hpp>
++#endif
+ 
+ #include <chemkit/plugin.h>
+ 
+diff --git a/src/md-io/trajectoryfile.h b/src/md-io/trajectoryfile.h
+index 189adb1..43a468c 100644
+--- a/src/md-io/trajectoryfile.h
++++ b/src/md-io/trajectoryfile.h
+@@ -40,7 +40,9 @@
+ 
+ #include <string>
+ 
++#ifndef Q_MOC_RUN
+ #include <boost/smart_ptr.hpp>
++#endif
+ 
+ #include <chemkit/genericfile.h>
+ 
+diff --git a/src/md-io/trajectoryfileformat.h b/src/md-io/trajectoryfileformat.h
+index 06b2e98..c53d407 100644
+--- a/src/md-io/trajectoryfileformat.h
++++ b/src/md-io/trajectoryfileformat.h
+@@ -43,7 +43,9 @@
+ #include <istream>
+ #include <ostream>
+ 
++#ifndef Q_MOC_RUN
+ #include <boost/iostreams/device/mapped_file.hpp>
++#endif
+ 
+ #include <chemkit/plugin.h>
+ 
+diff --git a/src/md/forcefield.h b/src/md/forcefield.h
+index 9f4c619..853e4fa 100644
+--- a/src/md/forcefield.h
++++ b/src/md/forcefield.h
+@@ -41,7 +41,9 @@
+ #include <string>
+ #include <vector>
+ 
++#ifndef Q_MOC_RUN
+ #include <boost/thread/future.hpp>
++#endif
+ 
+ #include <chemkit/plugin.h>
+ #include <chemkit/point3.h>
+diff --git a/src/md/forcefieldcalculation.h b/src/md/forcefieldcalculation.h
+index a3defdb..feb0ffe 100644
+--- a/src/md/forcefieldcalculation.h
++++ b/src/md/forcefieldcalculation.h
+@@ -40,7 +40,9 @@
+ 
+ #include <vector>
+ 
++#ifndef Q_MOC_RUN
+ #include <boost/shared_ptr.hpp>
++#endif
+ 
+ #include <chemkit/vector3.h>
+ 
+diff --git a/src/md/integrator.h b/src/md/integrator.h
+index b73c687..65d0f00 100644
+--- a/src/md/integrator.h
++++ b/src/md/integrator.h
+@@ -40,7 +40,9 @@
+ 
+ #include <vector>
+ 
++#ifndef Q_MOC_RUN
+ #include <boost/shared_ptr.hpp>
++#endif
+ 
+ #include <chemkit/vector3.h>
+ 
+diff --git a/src/md/moleculegeometryoptimizer.h b/src/md/moleculegeometryoptimizer.h
+index 07e38cb..c8dfa95 100644
+--- a/src/md/moleculegeometryoptimizer.h
++++ b/src/md/moleculegeometryoptimizer.h
+@@ -40,7 +40,9 @@
+ 
+ #include <string>
+ 
++#ifndef Q_MOC_RUN
+ #include <boost/thread/future.hpp>
++#endif
+ 
+ namespace chemkit {
+ 
+diff --git a/src/md/potential.h b/src/md/potential.h
+index df2f1ce..ce94340 100644
+--- a/src/md/potential.h
++++ b/src/md/potential.h
+@@ -40,7 +40,9 @@
+ 
+ #include <vector>
+ 
++#ifndef Q_MOC_RUN
+ #include <boost/thread/future.hpp>
++#endif
+ 
+ #include <chemkit/vector3.h>
+ 
+diff --git a/src/md/topology.h b/src/md/topology.h
+index a551a24..582d76c 100644
+--- a/src/md/topology.h
++++ b/src/md/topology.h
+@@ -41,8 +41,10 @@
+ #include <string>
+ #include <vector>
+ 
++#ifndef Q_MOC_RUN
+ #include <boost/array.hpp>
+ #include <boost/range/iterator_range.hpp>
++#endif
+ 
+ namespace chemkit {
+ 
+diff --git a/src/md/topologybuilder.h b/src/md/topologybuilder.h
+index 98e72b1..718e287 100644
+--- a/src/md/topologybuilder.h
++++ b/src/md/topologybuilder.h
+@@ -40,7 +40,9 @@
+ 
+ #include <string>
+ 
++#ifndef Q_MOC_RUN
+ #include <boost/shared_ptr.hpp>
++#endif
+ 
+ namespace chemkit {
+ 
+diff --git a/src/plugins/mmff/mmffparameters.h b/src/plugins/mmff/mmffparameters.h
+index 07066f1..9e9cca1 100644
+--- a/src/plugins/mmff/mmffparameters.h
++++ b/src/plugins/mmff/mmffparameters.h
+@@ -38,7 +38,9 @@
+ 
+ #include <string>
+ 
++#ifndef Q_MOC_RUN
+ #include <boost/shared_ptr.hpp>
++#endif
+ 
+ #include "mmffaromaticitymodel.h"
+ 
+diff --git a/src/plugins/mmff/mmffplugin.h b/src/plugins/mmff/mmffplugin.h
+index 4776f5d..1ff8dca 100644
+--- a/src/plugins/mmff/mmffplugin.h
++++ b/src/plugins/mmff/mmffplugin.h
+@@ -39,7 +39,9 @@
+ #include <map>
+ #include <string>
+ 
++#ifndef Q_MOC_RUN
+ #include <boost/shared_ptr.hpp>
++#endif
+ 
+ #include <chemkit/plugin.h>
+ #include <chemkit/moleculardescriptor.h>
+diff --git a/src/web/proteindatabank.h b/src/web/proteindatabank.h
+index 8811baf..fe7362b 100644
+--- a/src/web/proteindatabank.h
++++ b/src/web/proteindatabank.h
+@@ -40,7 +40,9 @@
+ 
+ #include <QtCore>
+ 
++#ifndef Q_MOC_RUN
+ #include <boost/shared_ptr.hpp>
++#endif
+ 
+ namespace chemkit {
+ 
+diff --git a/src/web/pubchem.h b/src/web/pubchem.h
+index e2225f5..e25526f 100644
+--- a/src/web/pubchem.h
++++ b/src/web/pubchem.h
+@@ -40,7 +40,9 @@
+ 
+ #include <string>
+ 
++#ifndef Q_MOC_RUN
+ #include <boost/shared_ptr.hpp>
++#endif
+ 
+ #include <QtCore>
+ #include <QtNetwork>
