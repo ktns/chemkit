@@ -1,12 +1,9 @@
-chemkit (0.1-1~2.gbp0e4956) UNRELEASED; urgency=medium
+chemkit (0.1-1~3.gbp21efcc) UNRELEASED; urgency=medium
 
-  ** SNAPSHOT build @0e4956296c4bb79c9a1c6921df6164633ed3eb3e **
+  ** SNAPSHOT build @21efcc2e9ce339c8fade98130fe37747f6a0733f **
 
-  * Summarize copyright notations
-  * Allow parallel builds
-  * Use system libjsoncpp instead of bundled one
   * Fix doc/man/chemkit-grep.1
-  * Use system FindEigen3.cmake
+  * Use system FindEigen3, libjsoncpp and rapidxml instead of bundled one
   * Support Multi-Arch using GNUInstallDirs cmake module
 
  -- Katsuhiko Nishimra <ktns.87@gmail.com>  Thu, 24 Dec 2015 00:28:49 +0900
