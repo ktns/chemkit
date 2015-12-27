@@ -12,15 +12,6 @@ Homepage: http://sourceforge.net/projects/chemkit/
 #Vcs-Git: git://anonscm.debian.org/collab-maint/chemkit.git
 #Vcs-Browser: https://anonscm.debian.org/gitweb/?p=collab-maint/chemkit.git;a=summary
 
-Package: chemkit
-Architecture: any
-Depends: libchemkit (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}
-Description: open source software library for chemistry applications
- chemkit is an open source software library for chemistry applications,
- particularly in the areas of cheminformatics, molecular visualization and
- molecular modeling.
- This package contains some utlity commands.
-
 Package: libchemkit
 Section: libs
 Architecture: any
@@ -41,3 +32,12 @@ Description: open source software library for chemistry applications
  particularly in the areas of cheminformatics, molecular visualization and
  molecular modeling.
  This package contains development files.
+
+Package: libchemkit-bin
+Architecture: any
+Depends: libchemkit (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}
+Description: open source software library for chemistry applications
+ chemkit is an open source software library for chemistry applications,
+ particularly in the areas of cheminformatics, molecular visualization and
+ molecular modeling.
+ This package contains some utlity commands.
